@@ -1,0 +1,2 @@
+INSERT into test_entity (name) VALUES ('Some_name');
+INSERT into test_entity (name) VALUES ('Some_name');
