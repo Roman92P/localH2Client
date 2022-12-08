@@ -28,8 +28,13 @@ public class CachingConfig {
 
     @PostConstruct
     public void initializeCache() {
-        TestEntity t = this.testEntityService.getTestEntity(1);
-       CacheManager cacheManager = this.cacheManager;
-       cacheManager.getCache("tests").put(t.getId(),t);
+        CacheManager cacheManager = this.cacheManager;
+        RequestQueryParamCache requestQueryParamCache = new RequestQueryParamCache();
+        requestQueryParamCache.setSearchIdentifier("code1");
+        requestQueryParamCache.setSearchIdentifierTwo("hola");
+
+        cacheManager.getCache("requestparam").put("code1+hola", requestQueryParamCache);
+        TestEntity t = this.testEntityService.getTestEntity("code1+hola");
+        cacheManager.getCache("tests").put(t.getSearchidentifier(), t);
     }
 }
